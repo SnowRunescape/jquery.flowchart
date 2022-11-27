@@ -634,11 +634,16 @@ jQuery(function ($) {
             return this.operatorNum;
         },
 
-        createOperator: function (operatorId, operatorData) {
+        createOperator: function (operatorId, operatorData, operatorFullElement = null) {
             operatorData.internal = {};
             this._refreshInternalProperties(operatorData);
 
-            var fullElement = this._getOperatorFullElement(operatorData);
+            var fullElement = operatorFullElement;
+
+            if (fullElement === null) {
+                fullElement = this._getOperatorFullElement(operatorData);
+            }
+
             if (!this.callbackEvent('operatorCreate', [operatorId, operatorData, fullElement])) {
                 return false;
             }
